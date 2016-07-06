@@ -101,8 +101,9 @@ create_graph_png <- function(max_date,i) {
   # Translation: make a subgraph of 'g'. Edgelist to use is entries in 'edges' which happened
   # before the input date. (<= less than/equal to; which() returns T/F based on a logical condition)
   # A subgraph gives part of a graph, but will only contain the specified vertices & edges.
-  gx <- subgraph.edges(g,
-                       edges[which(edges$year <= max_date),'i'], 
+  
+  # 'i' in the subscript? doesn't feel right but ok, will keep it for now.
+  gx <- subgraph.edges(g,edges[which(edges$year <= max_date), 'id'], 
                        delete.vertices=F)
 
   # Specify both the vertex fill and vertex frame colour. "Black" is a preset colour in igraph
@@ -137,8 +138,7 @@ create_graph_png <- function(max_date,i) {
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$size <- 1
 
   # the size of a node grows with the number of attached edges
-  # [BUG BUG BUG] doesnt work lol
-  V(gx)$size <- degree(gx)^(2)
+  V(gx)$size <- degree(gx)^(1/3)
   
   # new nodes emphasized by bright color and a changing size
   newones <- hsv(.36,1,1,alpha=.5)
@@ -161,9 +161,9 @@ create_graph_png <- function(max_date,i) {
   # ok but technically NOTHING should have a degree less than 1...if it does, clearly gx wasnt
   # drawn correctly???? wtf
   # but if these lines are commented out, everything works fine. w t f
-  # V(gx)[which(degree(gx) < 1)]$frame.color=notyet 
-  # V(gx)[which(degree(gx) < 1)]$color=notyet 
-  # V(gx)[which(degree(gx) < 1)]$size=0
+  V(gx)[which(degree(gx) < 1)]$frame.color=notyet 
+  V(gx)[which(degree(gx) < 1)]$color=notyet 
+  V(gx)[which(degree(gx) < 1)]$size=0
   
   bgcolor <- hsv(0.66,0.05,1)
   
@@ -194,7 +194,7 @@ create_graph_png <- function(max_date,i) {
   # (%03d, i): if i=1, you will see 001. if i=2, you will see 002. etc.
   
   ############### NTS: REMEMBER TO CHANGE THIS LOCATION EACH TIME U PRINT ##################
-  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testE\\testE%03d.png", i),
+  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testF\\testF%03d.png", i),
   width=5000, height=5000, bg=bgcolor, res=372)
   ###########################################################################################
   
@@ -223,13 +223,12 @@ for (i in c(1:22)) {
 ######################## DEBUGGING TRIAL SCRAP #############################
 
 # test colours here:
-plot(x=1:10, y=rep(5,10), pch=19, cex=3, col=hsv(.7,1,1,alpha=.5))
+# plot(x=1:10, y=rep(5,10), pch=19, cex=3, col=hsv(.7,1,1,alpha=.5))
 
 # notyet bug
-V(g)[which(degree(g) > 10)] # degrees work fine
-V(g)[which(degree(g) < 1)] # none
+# V(g)[which(degree(g) > 10)] # degrees work fine
+# V(g)[which(degree(g) < 1)] # none
 
 
-gx <- subgraph.edges(g, edges[which(edges$year <= 2000)], 
-                     delete.vertices=F)
+# gx <- subgraph.edges(g, edges[which(edges$year <= 2000)], delete.vertices=F)
 
