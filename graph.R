@@ -191,7 +191,7 @@ create_graph_png <- function(max_date,i) {
   # (%03d, i): if i=1, you will see 001. if i=2, you will see 002. etc.
   
   # the size of a node grows with the number of attached edges
-  V(gx)$size <- 1.005*degree(gx)
+  V(gx)$size <- log(degree(gx))
   
   ############### NTS: REMEMBER TO CHANGE THIS LOCATION EACH TIME U PRINT ##################
   png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testG\\testG%03d.png", i),
@@ -217,8 +217,6 @@ for (i in c(1:22)) {
   message(sprintf("printing year %d", one_year_prev + i))
   create_graph_png(one_year_prev + i, i)
 }
-
-
 
 ######################## DEBUGGING TRIAL SCRAP #############################
 
