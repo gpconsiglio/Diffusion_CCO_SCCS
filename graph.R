@@ -111,7 +111,7 @@ create_graph_png <- function(max_date,i) {
   # HSV is one of the ways to specify colour in programming. Often used for ease of controlling colour intensity
   # Alpha value denotes transparency (This is consistent across many programming contexts)
   # designates all a1 colours
-  col_a1 <- hsv(0,1,1,alpha=.5)
+  col_a1 <- rgb( .9, .0, .4, alpha=.4) 
   
   # Select entries in 'nodes' which returns TRUE if their type is a1
   # i.e. select 1st authors, and set their fill/frame colours to the colour defined in above col_a1
@@ -119,23 +119,33 @@ create_graph_png <- function(max_date,i) {
   V(gx)[which(nodes$type == "a1")]$frame.color <- col_a1
  
   # Repeat for aO
-  col_aO <- hsv(0.66,1,1,alpha=.5)
+  col_aO <- rgb( .1, .6, 1 , alpha=.4))
   V(gx)[which(nodes$type == "aO")]$color <- col_aO
   V(gx)[which(nodes$type == "aO")]$frame.color <- col_aO
 
   # Repeat for those published as both author positions. | means OR
-  col_hybrid <- hsv(.7,1,1,alpha=.5)
+  col_hybrid <- rgb( .4, .3, 1, alpha=.4)
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$color <- col_hybrid
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$frame.color <- col_hybrid
   
-  # new nodes emphasized by bright color and a changing size
-  newones <- hsv(.36,1,1,alpha=.5)
+  # the size of a node grows with the number of attached edges
   
+  V(gx)$size <- log(3*degree(gx))
+  
+  ##### FEATURE CURRENTLY VOIDED #################################################################
+  #
   # if node is 3 years or less, colour glows green.
   # logic statement: year of network (max_date) - year of the node is less/equal to 3 
-  #FEATURE CURRENTLY VOIDED
+  #newones <- hsv(.36,1,1,alpha=.5)
   #V(gx)[which((max_date - nodes$year) <= 3)]$color <- newones
   #V(gx)[which((max_date - nodes$year) <= 3)]$frame.color <- newones
+  # 
+  # New nodes come in very big, then decreases, then "settles" at a "native size"
+  #V(gx)[which((max_date - nodes$year) <= 1)]$size <- 7
+  #V(gx)[which( ((max_date - nodes$year)>1) & ((max_date - nodes$year)<=3) )]$size <- 1.6
+  #
+  ###############################################################################################
+  
   
   # Get's rid of the not yet to be displayed nodes
   # So technically, if gx is being made corretly, this should be needed.
@@ -168,19 +178,9 @@ create_graph_png <- function(max_date,i) {
   # 'sprintf()' runs the commands inside of it, but returns it in a string format
   # (%03d, i): if i=1, you will see 001. if i=2, you will see 002. etc.
   
-  # the size of a node grows with the number of attached edges
-  
-  # New nodes come in very big, then decreases, then "settles" at a "native size"
-  V(gx)[which((max_date - nodes$year) <= 1)]$size <- 7
-  V(gx)[which( ((max_date - nodes$year)>1) & ((max_date - nodes$year)<=3) )]$size <- 1.6
-  V(gx)$size <- log(3*degree(gx))
-  
-  
-  
-  
   
   ############### NTS: REMEMBER TO CHANGE THIS LOCATION EACH TIME U PRINT ##################
-  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testG\\testG%03d.png", i),
+  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testH\\testH%04d.png", max_date),
   width=5000, height=5000, bg=bgcolor, res=372)
   ###########################################################################################
   
@@ -207,4 +207,7 @@ for (i in c(1:22)) {
 ######################## DEBUGGING TRIAL SCRAP #############################
 
 # test colours here:
-# plot(x=1:10, y=rep(5,10), pch=19, cex=3, col=hsv(.7,1,1,alpha=.5))
+plot(x=1:10, y=rep(6,10), pch=19, cex=3, col=rgb( .9, .0, .4, alpha=.4))
+#points(x=1:10, y=rep(5,10), pch=19, cex=3, col=rgb( .8, .4, .8, alpha=.4))
+points(x=1:10, y=rep(5,10), pch=19, cex=3, col=rgb( .4, .3, 1, alpha=.4))
+points(x=1:10, y=rep(4,10), pch=19, cex=3, col=rgb( .1, .6, 1 , alpha=.4))
