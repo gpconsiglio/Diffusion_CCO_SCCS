@@ -81,7 +81,7 @@ edges <- sqldf("SELECT edges.Author1, edges.a1_id, edges.value, edges.year, aO_i
 edges <- data.frame(a1 = edges$a1_id, aO = edges$aO_id, year = edges$Year)
 
 # add edges ID to table
-edges$id <- 1:length('a1')
+edges$id <- 1:length(edges$a1)
 
 ############################################ NEW SCRIPT ##############################################################
 
@@ -119,7 +119,7 @@ create_graph_png <- function(max_date,i) {
   # Select entries in 'nodes' which returns TRUE if their type is a1
   # i.e. select 1st authors, and set their fill/frame colours to the colour defined in above col_a1
   V(gx)[which(nodes$type == "a1")]$color <- col_a1
-  #V(gx)[which(nodes$type == "a1")]$frame.color <- col_a1
+  V(gx)[which(nodes$type == "a1")]$frame.color <- col_a1
 
   # specifies size
   V(gx)[which(nodes$type == "a1")]$size <- 1
@@ -128,13 +128,13 @@ create_graph_png <- function(max_date,i) {
   col_aO <- hsv(0.66,1,1,alpha=.5)
   V(gx)[which(nodes$type == "aO")]$color <- col_aO
   V(gx)[which(nodes$type == "aO")]$frame.color <- col_aO
-  #V(gx)[which(nodes$type == "aO")]$size <- 1
+  V(gx)[which(nodes$type == "aO")]$size <- 1
 
   # Repeat for those published as both author positions. | means OR
   col_hybrid <- hsv(.7,1,1,alpha=.5)
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$color <- col_hybrid
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$frame.color <- col_hybrid
-  #V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$size <- 1
+  V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$size <- 1
 
   # the size of a node grows with the number of attached edges
   # [BUG BUG BUG] doesnt work lol
@@ -194,7 +194,7 @@ create_graph_png <- function(max_date,i) {
   # (%03d, i): if i=1, you will see 001. if i=2, you will see 002. etc.
   
   ############### NTS: REMEMBER TO CHANGE THIS LOCATION EACH TIME U PRINT ##################
-  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testD\\testD%03d.png", i),
+  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testE\\testE%03d.png", i),
   width=5000, height=5000, bg=bgcolor, res=372)
   ###########################################################################################
   
@@ -219,8 +219,6 @@ for (i in c(1:22)) {
 }
 
 
-# problems: 
-
 
 ######################## DEBUGGING TRIAL SCRAP #############################
 
@@ -230,3 +228,8 @@ plot(x=1:10, y=rep(5,10), pch=19, cex=3, col=hsv(.7,1,1,alpha=.5))
 # notyet bug
 V(g)[which(degree(g) > 10)] # degrees work fine
 V(g)[which(degree(g) < 1)] # none
+
+
+gx <- subgraph.edges(g, edges[which(edges$year <= 2000)], 
+                     delete.vertices=F)
+
