@@ -91,10 +91,6 @@ g <- graph.data.frame(edges, directed = T, vertices = nodes)
 # Apply the Fruchterman-Reingold layout
 layout_g <- layout.fruchterman.reingold(g)
 
-######################################################################################################################
-#                                   START RUNNING FUNCTION FROM HERE TO SAVE TIME                                    #
-######################################################################################################################
-
 create_graph_png <- function(max_date,i) {
   
   # Structure of function: subgraph.edges(graph, eids, delete.vertices = TRUE)
@@ -108,7 +104,7 @@ create_graph_png <- function(max_date,i) {
 
   # Specify both the vertex fill and vertex frame colour. "Black" is a preset colour in igraph
   # V(gx) selects all nodes in the subgraph
-  # lol why is this even necessary (this is taken from the carpool code)
+  # Probably not very necessary? (this is taken from the carpool code)
   V(gx)$color <- "black"
   V(gx)$frame.color <- "black"
   
@@ -121,43 +117,33 @@ create_graph_png <- function(max_date,i) {
   # i.e. select 1st authors, and set their fill/frame colours to the colour defined in above col_a1
   V(gx)[which(nodes$type == "a1")]$color <- col_a1
   V(gx)[which(nodes$type == "a1")]$frame.color <- col_a1
-
-  # specifies size
-  V(gx)[which(nodes$type == "a1")]$size <- 1
  
   # Repeat for aO
   col_aO <- hsv(0.66,1,1,alpha=.5)
   V(gx)[which(nodes$type == "aO")]$color <- col_aO
   V(gx)[which(nodes$type == "aO")]$frame.color <- col_aO
-  V(gx)[which(nodes$type == "aO")]$size <- 1
 
   # Repeat for those published as both author positions. | means OR
   col_hybrid <- hsv(.7,1,1,alpha=.5)
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$color <- col_hybrid
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$frame.color <- col_hybrid
-  V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$size <- 1
   
   # new nodes emphasized by bright color and a changing size
   newones <- hsv(.36,1,1,alpha=.5)
   
   # if node is 3 years or less, colour glows green.
   # logic statement: year of network (max_date) - year of the node is less/equal to 3 
+  #FEATURE CURRENTLY VOIDED
   #V(gx)[which((max_date - nodes$year) <= 3)]$color <- newones
   #V(gx)[which((max_date - nodes$year) <= 3)]$frame.color <- newones
   
-  # Similar logic. Make size 2.5 when node appears, after a while make it a bit smaller
-  V(gx)[which( ((max_date - nodes$year)>3) & ((max_date - nodes$year)<=5) )]$size <- 1.6
-  V(gx)[which((max_date - nodes$year) <= 3)]$size <- 2.5
-  
-  # [BUG BUG BUG BUG] get's rid of the not yet to be displayed nodes
-  # [AL] this line is a little odd. technically, these nodes shouldn't have been drawn in anyway
+  # Get's rid of the not yet to be displayed nodes
+  # So technically, if gx is being made corretly, this should be needed.
+  # For some reason, nodes from beyond 1992 is showing up in the 1992 graph, etc.
+  # This fixes the bug, but I'm still trying to figure out exactly why...
   # alpha = 0 means completely transparent
   notyet <- hsv(1,1,1,alpha=0)
   
-  # [BUG BUG BUG BUG] get's rid of the not yet to be displayed nodes
-  # ok but technically NOTHING should have a degree less than 1...if it does, clearly gx wasnt
-  # drawn correctly???? wtf
-  # but if these lines are commented out, everything works fine. w t f
   V(gx)[which(degree(gx) < 1)]$frame.color=notyet 
   V(gx)[which(degree(gx) < 1)]$color=notyet 
   V(gx)[which(degree(gx) < 1)]$size=0
@@ -165,24 +151,16 @@ create_graph_png <- function(max_date,i) {
   bgcolor <- hsv(0.66,0.05,1)
   
   # the textual annotations
-  plot_title <- paste("Co-authorship Network of CCO and SSCO Methods in Pharmacoepidemiology | ",max_date)
-  if(max_date <= 1995) {
-    plot_title <- paste(plot_title," - We can add a titles which change...")
+  plot_title <- paste("Co-authorship Network of CCO and SSCO Methods in Pharmacoepidemiology | ")
+  if(max_date < 2013) {
+    plot_title <- paste(plot_title, max_date)
   }
   
-  if(max_date <= 2000) {
-    plot_title <- paste(plot_title," - ...overtime, to mark major events...")
+  if(max_date >= 2013) {
+    plot_title <- paste(plot_title, "2013")
   }
   
-  if(max_date <= 2005) {
-    plot_title <- paste(plot_title," - ...or characterize certain time periods.")
-  }
-  
-  if(max_date <= 2010) {
-    plot_title <- paste(plot_title," - cats")
-  }
-  
-    # advertisement
+    # Legend
   sub_title <- "First authors: red; Other authors: blue"
   
   par(bg=bgcolor)
@@ -191,7 +169,15 @@ create_graph_png <- function(max_date,i) {
   # (%03d, i): if i=1, you will see 001. if i=2, you will see 002. etc.
   
   # the size of a node grows with the number of attached edges
+  
+  # New nodes come in very big, then decreases, then "settles" at a "native size"
+  V(gx)[which((max_date - nodes$year) <= 1)]$size <- 7
+  V(gx)[which( ((max_date - nodes$year)>1) & ((max_date - nodes$year)<=3) )]$size <- 1.6
   V(gx)$size <- log(3*degree(gx))
+  
+  
+  
+  
   
   ############### NTS: REMEMBER TO CHANGE THIS LOCATION EACH TIME U PRINT ##################
   png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testG\\testG%03d.png", i),
@@ -222,11 +208,3 @@ for (i in c(1:22)) {
 
 # test colours here:
 # plot(x=1:10, y=rep(5,10), pch=19, cex=3, col=hsv(.7,1,1,alpha=.5))
-
-# notyet bug
-# V(g)[which(degree(g) > 10)] # degrees work fine
-# V(g)[which(degree(g) < 1)] # none
-
-
-# gx <- subgraph.edges(g, edges[which(edges$year <= 2000)], delete.vertices=F)
-
