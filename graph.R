@@ -136,9 +136,6 @@ create_graph_png <- function(max_date,i) {
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$color <- col_hybrid
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$frame.color <- col_hybrid
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$size <- 1
-
-  # the size of a node grows with the number of attached edges
-  V(gx)$size <- degree(gx)^(1/3)
   
   # new nodes emphasized by bright color and a changing size
   newones <- hsv(.36,1,1,alpha=.5)
@@ -192,6 +189,9 @@ create_graph_png <- function(max_date,i) {
   # let's create a PNG and plot the graph onto it
   # 'sprintf()' runs the commands inside of it, but returns it in a string format
   # (%03d, i): if i=1, you will see 001. if i=2, you will see 002. etc.
+  
+  # the size of a node grows with the number of attached edges
+  V(gx)$size <- 2*degree(gx)
   
   ############### NTS: REMEMBER TO CHANGE THIS LOCATION EACH TIME U PRINT ##################
   png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testF\\testF%03d.png", i),
