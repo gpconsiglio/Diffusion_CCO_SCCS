@@ -106,11 +106,13 @@ create_graph_png <- function(max_date,i) {
                        delete.vertices=F)
 
   # Specify both the vertex fill and vertex frame colour. "Black" is a preset colour in igraph
+  # V(gx) selects all nodes in the subgraph
   V(gx)$color <- "black"
   V(gx)$frame.color <- "black"
   
   # HSV is one of the ways to specify colour in programming. Often used for ease of controlling colour intensity
   # Alpha value denotes transparency (This is consistent across many programming contexts)
+  # designates all a1 colours
   col_a1 <- hsv(0,1,1,alpha=.5)
   
   # Select entries in 'nodes' which returns TRUE if their type is a1
@@ -134,13 +136,14 @@ create_graph_png <- function(max_date,i) {
   # new nodes emphasized by bright color and a changing size
   newones <- hsv(.36,1,1,alpha=.5)
   
-  # if node year - input year (i.e. max_date) is less/equal to 1, node will glow 
+  # if node is 3 years or less, colour glows green.
+  # logic statement: year of network (max_date) - year of the node is less/equal to 3 
   V(gx)[which((max_date - nodes$year) <= 3)]$color <- newones
   V(gx)[which((max_date - nodes$year) <= 3)]$frame.color <- newones
   
-  # Similar logic. Make size 2.5 when node appears, after an age of 1 turn it to size 1.6
-  V(gx)[which((max_date - nodes$year) < 2)]$size <- 1.6
-  V(gx)[which((max_date - nodes$year) < 4)]$size <- 2.5
+  # Similar logic. Make size 2.5 when node appears, after a while make it a bit smaller
+  V(gx)[which(3 < (max_date - nodes$year) < 5)]$size <- 1.6
+  V(gx)[which((max_date - nodes$year) <= 2)]$size <- 2.5
   
   # get's rid of the not yet to be displayed nodes
   # [AL] this line is a little odd. technically, these nodes shouldn't have been drawn in anyway
@@ -153,7 +156,7 @@ create_graph_png <- function(max_date,i) {
   V(gx)[which(degree(gx) < 1)]$color=notyet 
   V(gx)[which(degree(gx) < 1)]$size=0
   
-    bgcolor <- hsv(0.66,0.05,1)
+  bgcolor <- hsv(0.66,0.05,1)
   
   
   # the textual annotations
@@ -183,7 +186,7 @@ create_graph_png <- function(max_date,i) {
   # (%03d, i): if i=1, you will see 001. if i=2, you will see 002. etc.
   
   ############### NTS: REMEMBER TO CHANGE THIS LOCATION EACH TIME U PRINT ##################
-  png(sprintf("C:\\Users\\Amy\\Document\\R_Git\\R_outputs\\testC\\testC%03d.png", i),
+  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testC\\testC%03d.png", i),
   width=5000, height=5000, bg=bgcolor, res=372)
   ###########################################################################################
   
@@ -211,3 +214,7 @@ for (i in c(1:22)) {
 # problems: 
 
 
+
+
+# test colours here:
+plot(x=1:10, y=rep(5,10), pch=19, cex=3, col=hsv(.7,1,1,alpha=.5))
