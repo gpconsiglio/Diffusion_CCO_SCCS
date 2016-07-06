@@ -107,6 +107,7 @@ create_graph_png <- function(max_date,i) {
 
   # Specify both the vertex fill and vertex frame colour. "Black" is a preset colour in igraph
   # V(gx) selects all nodes in the subgraph
+  # lol why is this even necessary (this is taken from the carpool code)
   V(gx)$color <- "black"
   V(gx)$frame.color <- "black"
   
@@ -118,46 +119,53 @@ create_graph_png <- function(max_date,i) {
   # Select entries in 'nodes' which returns TRUE if their type is a1
   # i.e. select 1st authors, and set their fill/frame colours to the colour defined in above col_a1
   V(gx)[which(nodes$type == "a1")]$color <- col_a1
-  V(gx)[which(nodes$type == "a1")]$frame.color <- col_a1
+  #V(gx)[which(nodes$type == "a1")]$frame.color <- col_a1
 
-  # Repeat for aO node colours.
+  # specifies size
+  V(gx)[which(nodes$type == "a1")]$size <- 1
+ 
+  # Repeat for aO
   col_aO <- hsv(0.66,1,1,alpha=.5)
   V(gx)[which(nodes$type == "aO")]$color <- col_aO
   V(gx)[which(nodes$type == "aO")]$frame.color <- col_aO
+  #V(gx)[which(nodes$type == "aO")]$size <- 1
 
   # Repeat for those published as both author positions. | means OR
   col_hybrid <- hsv(.7,1,1,alpha=.5)
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$color <- col_hybrid
   V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$frame.color <- col_hybrid
+  #V(gx)[which(nodes$type == "a1aO" | nodes$type == "aOa1")]$size <- 1
 
   # the size of a node grows with the number of attached edges
-  V(gx)$size <- degree(gx)^(1/3)
+  # [BUG BUG BUG] doesnt work lol
+  V(gx)$size <- degree(gx)^(2)
   
   # new nodes emphasized by bright color and a changing size
   newones <- hsv(.36,1,1,alpha=.5)
   
   # if node is 3 years or less, colour glows green.
   # logic statement: year of network (max_date) - year of the node is less/equal to 3 
-  V(gx)[which((max_date - nodes$year) <= 3)]$color <- newones
-  V(gx)[which((max_date - nodes$year) <= 3)]$frame.color <- newones
+  #V(gx)[which((max_date - nodes$year) <= 3)]$color <- newones
+  #V(gx)[which((max_date - nodes$year) <= 3)]$frame.color <- newones
   
   # Similar logic. Make size 2.5 when node appears, after a while make it a bit smaller
-  V(gx)[which(3 < (max_date - nodes$year) < 5)]$size <- 1.6
-  V(gx)[which((max_date - nodes$year) <= 2)]$size <- 2.5
+  V(gx)[which( ((max_date - nodes$year)>3) & ((max_date - nodes$year)<=5) )]$size <- 1.6
+  V(gx)[which((max_date - nodes$year) <= 3)]$size <- 2.5
   
-  # get's rid of the not yet to be displayed nodes
+  # [BUG BUG BUG BUG] get's rid of the not yet to be displayed nodes
   # [AL] this line is a little odd. technically, these nodes shouldn't have been drawn in anyway
-  # [AL] try taking these lines out and plotting again
+  # alpha = 0 means completely transparent
   notyet <- hsv(1,1,1,alpha=0)
   
-  # This was in carpool code, but it seemed to cause a bug in this script?
-  # I don't see why this is needed either. Leaving it as a comment in case I'm overlooking something.
-  V(gx)[which(degree(gx) < 1)]$frame.color=notyet 
-  V(gx)[which(degree(gx) < 1)]$color=notyet 
-  V(gx)[which(degree(gx) < 1)]$size=0
+  # [BUG BUG BUG BUG] get's rid of the not yet to be displayed nodes
+  # ok but technically NOTHING should have a degree less than 1...if it does, clearly gx wasnt
+  # drawn correctly???? wtf
+  # but if these lines are commented out, everything works fine. w t f
+  # V(gx)[which(degree(gx) < 1)]$frame.color=notyet 
+  # V(gx)[which(degree(gx) < 1)]$color=notyet 
+  # V(gx)[which(degree(gx) < 1)]$size=0
   
   bgcolor <- hsv(0.66,0.05,1)
-  
   
   # the textual annotations
   plot_title <- paste("Co-authorship Network of CCO and SSCO Methods in Pharmacoepidemiology | ",max_date)
@@ -186,7 +194,7 @@ create_graph_png <- function(max_date,i) {
   # (%03d, i): if i=1, you will see 001. if i=2, you will see 002. etc.
   
   ############### NTS: REMEMBER TO CHANGE THIS LOCATION EACH TIME U PRINT ##################
-  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testC\\testC%03d.png", i),
+  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testD\\testD%03d.png", i),
   width=5000, height=5000, bg=bgcolor, res=372)
   ###########################################################################################
   
@@ -214,7 +222,11 @@ for (i in c(1:22)) {
 # problems: 
 
 
-
+######################## DEBUGGING TRIAL SCRAP #############################
 
 # test colours here:
 plot(x=1:10, y=rep(5,10), pch=19, cex=3, col=hsv(.7,1,1,alpha=.5))
+
+# notyet bug
+V(g)[which(degree(g) > 10)] # degrees work fine
+V(g)[which(degree(g) < 1)] # none
