@@ -97,7 +97,8 @@ edges <- sqldf("SELECT edges.Author1, edges.a1_id, edges.value, edges.year, aO_i
 edges <- data.frame(a1 = edges$a1_id, aO = edges$aO_id, year = edges$Year)
 
 # add edges ID to table
-edges$id <- 1:length('a1')
+# creates a column called ID which is numbered from 1 to the length of the a1 column
+edges$id <- 1:length(edges$a1)
 
 ########### CODES NOT USED, BUT DOCUMENTED FOR LEARNING PURPOSES ####################################################
 
