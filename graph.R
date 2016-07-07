@@ -119,7 +119,7 @@ create_graph_png <- function(max_date,i) {
   V(gx)[which(nodes$type == "a1")]$frame.color <- col_a1
  
   # Repeat for aO
-  col_aO <- rgb( .1, .6, 1 , alpha=.4))
+  col_aO <- rgb( .1, .6, 1 , alpha=.4)
   V(gx)[which(nodes$type == "aO")]$color <- col_aO
   V(gx)[which(nodes$type == "aO")]$frame.color <- col_aO
 
@@ -171,7 +171,7 @@ create_graph_png <- function(max_date,i) {
   }
   
     # Legend
-  sub_title <- "First authors: red; Other authors: blue"
+  sub_title <- "PINK = First authors || BLUE = Other authors || PURPLE: Publishd as both"
   
   par(bg=bgcolor)
   # let's create a PNG and plot the graph onto it
@@ -180,7 +180,7 @@ create_graph_png <- function(max_date,i) {
   
   
   ############### NTS: REMEMBER TO CHANGE THIS LOCATION EACH TIME U PRINT ##################
-  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testH\\testH%04d.png", max_date),
+  png(sprintf("C:\\Users\\Amy\\Documents\\R_Git\\R_outputs\\testI\\testI%02d.png", i),
   width=5000, height=5000, bg=bgcolor, res=372)
   ###########################################################################################
   
@@ -199,15 +199,13 @@ create_graph_png <- function(max_date,i) {
 # 2013 - 1991 = 22
 # Translation: loop the function we just wrote 22 times (start a 1995), to generate a new subgraph each year 
 one_year_prev <- 1991
-for (i in c(1:22)) {
+for (i in c(1:25)) {
   message(sprintf("printing year %d", one_year_prev + i))
   create_graph_png(one_year_prev + i, i)
 }
 
-######################## DEBUGGING TRIAL SCRAP #############################
-
-# test colours here:
-plot(x=1:10, y=rep(6,10), pch=19, cex=3, col=rgb( .9, .0, .4, alpha=.4))
-#points(x=1:10, y=rep(5,10), pch=19, cex=3, col=rgb( .8, .4, .8, alpha=.4))
+######################## test colours here:
+plot(x=1:10, y=rep(7,10), pch=19, cex=3, col=rgb( .9, .0, .4, alpha=.4))
+points(x=1:10, y=rep(6,10), pch=19, cex=3, col=rgb( .8, .4, .8, alpha=.4))
 points(x=1:10, y=rep(5,10), pch=19, cex=3, col=rgb( .4, .3, 1, alpha=.4))
 points(x=1:10, y=rep(4,10), pch=19, cex=3, col=rgb( .1, .6, 1 , alpha=.4))
