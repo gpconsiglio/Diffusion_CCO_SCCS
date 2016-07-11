@@ -1,7 +1,3 @@
-# Generating network in igraph
-
-######################################### SET-UP ##################################################################
-
 library(sqldf)
 library(igraph)
 library(reshape2)
@@ -12,8 +8,7 @@ library(plyr)
 # Reads csv as data frame. Contains publications with authors, year, and method
 RawPubs <- read.csv("AllPubRaw.csv", header=T, sep=",")
 
-# Edgelist from first author to other authors with year and method data
-# See 'eGO//melt_cast.R' for more documentation, or read up on the melt() function.
+# Generates preliminary edgelist from first author to other authors, with year and method data
 PubMeltRaw <- melt(RawPubs, id.vars = c("Author1", "Year", "Method"))
 
 # Many papers do not have 36 authors. Remove rows with no author data
