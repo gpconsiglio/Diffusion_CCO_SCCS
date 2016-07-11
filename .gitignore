@@ -45,3 +45,9 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Added by Amy manually (please tell me I'm doing this right LOL)
+
+R_Git.Rproj
+.RData
+.Rhistory 
