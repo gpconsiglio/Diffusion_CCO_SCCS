@@ -82,24 +82,21 @@ edges$id <- 1:length(edges$a1)
 ################################################# NEW SCRIPT #########################################################
 
 # Read .csv table into R
-quality1992 <- read.csv("quality1992.csv", header=T, sep=",")
-quality1995 <- read.csv("quality1995.csv", header=T, sep=",")
-quality1998 <- read.csv("quality1998.csv", header=T, sep=",")
-quality2000 <- read.csv("quality2000.csv", header=T, sep=",")
-quality2001 <- read.csv("quality2001.csv", header=T, sep=",")
-quality2002 <- read.csv("quality2002.csv", header=T, sep=",")
-quality2003 <- read.csv("quality2003.csv", header=T, sep=",")
-quality2004 <- read.csv("quality2004.csv", header=T, sep=",")
-quality2005 <- read.csv("quality2005.csv", header=T, sep=",")
-quality2006 <- read.csv("quality2006.csv", header=T, sep=",")
-quality2007 <- read.csv("quality2007.csv", header=T, sep=",")
-quality2008 <- read.csv("quality2008.csv", header=T, sep=",")
-quality2009 <- read.csv("quality2009.csv", header=T, sep=",")
-quality2010 <- read.csv("quality2010.csv", header=T, sep=",")
-quality2011 <- read.csv("quality2011.csv", header=T, sep=",")
-quality2012 <- read.csv("quality2012.csv", header=T, sep=",")
+
 quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
 
-write.csv(quality2013[quality$year < 2013, ], "quality2012trial.csv")
+for (i in c(1:21)) {
+  quality data.frame(quality2013[quality$year < (2013-i), ]), sprintf("quality%d.csv", (2013-i)))
+}
 
+
+
+################### Scraped code
+
+# prints new CSV table by year
+quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
+
+for (i in c(1:21)) {
+  write.csv(quality2013[quality$year < (2013-i), ], sprintf("quality%d.csv", (2013-i)))
+  }
 
