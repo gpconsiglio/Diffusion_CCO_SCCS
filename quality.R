@@ -85,8 +85,10 @@ edges$id <- 1:length(edges$a1)
 
 quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
 
+# Make new .csv tables - only needed once.
 for (i in c(1:21)) {
-  quality data.frame(quality2013[quality$year < (2013-i), ]), sprintf("quality%d.csv", (2013-i)))
+  temp <- quality2013[quality2013$year <= (2013-i), ]
+  write.csv(temp, sprintf("quality%d.csv", (2013-i)))
 }
 
 
@@ -94,9 +96,36 @@ for (i in c(1:21)) {
 ################### Scraped code
 
 # prints new CSV table by year
-quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
+quality2013 <- read.csv("quality2013.csv", header=T, sep=",", row.names = F)
 
+# loop and print new csv - didn't do what i wanted for some reason
 for (i in c(1:21)) {
   write.csv(quality2013[quality$year < (2013-i), ], sprintf("quality%d.csv", (2013-i)))
-  }
+}
+
+# made more reducionist
+for (i in c(1:21)) {
+  T <- quality2013[quality2013$year < (2013-i), ]
+  print(i)
+  print(2013-i)
+  print(T)
+  message("---------------------------------")
+  #write.csv(T, sprintf("quality%d.csv", (2013-i)))
+}
+
+# even further improved?
+year <- (2013-i);
+tbl <- quality[quality$year < year, ];
+file_name<-sprintf('quality%d.csv', year);
+write.csv(tbl, file_name, row.names=F)
+df <- data.frame(read.csv(file_name))
+
+
+# extract pieces of quality2013 such that quality[y] is a slice of quality2013 up to year y
+quality <- list();
+for (i in c(1:21)) {
+  tbl <- data.frame(quality2013[quality2013$year < (2013-i), ])
+  quality[i] <- tbl
+}
+
 
