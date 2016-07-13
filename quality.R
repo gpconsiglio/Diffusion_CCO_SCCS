@@ -128,4 +128,8 @@ for (i in c(1:21)) {
   quality[i] <- tbl
 }
 
+# in which i give up trying to write loops, even while trying to read .csv back as dataframes
 
+for (i in c(1992:2012)) {
+  read.csv(sprintf("quality%d.csv", i))
+}

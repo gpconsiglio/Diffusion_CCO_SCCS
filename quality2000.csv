@@ -1,13 +1,13 @@
 "","year","author","method","reportScore","methodsScore"
-"1",1992,"Decker MD","CCO",100,100
-"2",1992,"Fought RL","CCO",100,100
-"3",1992,"Ray WA","CCO",100,100
-"4",1995,"de Jong-van den Berg LTW","CCO",100,100
-"5",1995,"Middelbeek A","CCO",100,100
-"6",1995,"Stricker BH","CCO",100,100
-"7",1995,"Sturkenboom MCM","CCO",100,100
-"8",1995,"van den Berg PB","CCO",100,100
-"9",1995,"Wesseling H","CCO",100,100
+"1",1992,"Decker MD","SCC",100,100
+"2",1992,"Fought RL","SCC",100,100
+"3",1992,"Ray WA","SCC",100,100
+"4",1995,"de Jong-van den Berg LTW","SCC",100,100
+"5",1995,"Middelbeek A","SCC",100,100
+"6",1995,"Stricker BH","SCC",100,100
+"7",1995,"Sturkenboom MCM","SCC",100,100
+"8",1995,"van den Berg PB","SCC",100,100
+"9",1995,"Wesseling H","SCC",100,100
 "10",1995,"Colville A","SCCS",0,100
 "11",1995,"Farrington CP","SCCS",0,100
 "12",1995,"Flower A","SCCS",0,100
@@ -16,13 +16,13 @@
 "15",1995,"Nash J","SCCS",0,100
 "16",1995,"Pugh S","SCCS",0,100
 "17",1995,"Rush M","SCCS",0,100
-"18",1998,"Barbone F","CCO",0,100
-"19",1998,"Davey PG","CCO",100,100
-"20",1998,"MacDonald TM","CCO",100,100
-"21",1998,"McDevitt DG","CCO",100,100
-"22",1998,"McMahon AD","CCO",100,100
-"23",1998,"Morris AD","CCO",100,100
-"24",1998,"Reid IC","CCO",100,100
+"18",1998,"Barbone F","SCC",0,100
+"19",1998,"Davey PG","SCC",100,100
+"20",1998,"MacDonald TM","SCC",100,100
+"21",1998,"McDevitt DG","SCC",100,100
+"22",1998,"McMahon AD","SCC",100,100
+"23",1998,"Morris AD","SCC",100,100
+"24",1998,"Reid IC","SCC",100,100
 "25",2000,"Barreto ML","SCCS",100,100
 "26",2000,"Cunha S","SCCS",100,100
 "27",2000,"Dourado I","SCCS",100,100
@@ -30,3 +30,29 @@
 "29",2000,"Lucena R","SCCS",100,100
 "30",2000,"Melo A","SCCS",100,100
 "31",2000,"Teixeira MG","SCCS",100,100
+"NA",NA,NA,NA,NA,NA
+"NA.1",NA,NA,NA,NA,NA
+"NA.2",NA,NA,NA,NA,NA
+"NA.3",NA,NA,NA,NA,NA
+"NA.4",NA,NA,NA,NA,NA
+"NA.5",NA,NA,NA,NA,NA
+"NA.6",NA,NA,NA,NA,NA
+"NA.7",NA,NA,NA,NA,NA
+"NA.8",NA,NA,NA,NA,NA
+"NA.9",NA,NA,NA,NA,NA
+"NA.10",NA,NA,NA,NA,NA
+"NA.11",NA,NA,NA,NA,NA
+"NA.12",NA,NA,NA,NA,NA
+"NA.13",NA,NA,NA,NA,NA
+"NA.14",NA,NA,NA,NA,NA
+"NA.15",NA,NA,NA,NA,NA
+"NA.16",NA,NA,NA,NA,NA
+"NA.17",NA,NA,NA,NA,NA
+"NA.18",NA,NA,NA,NA,NA
+"NA.19",NA,NA,NA,NA,NA
+"NA.20",NA,NA,NA,NA,NA
+"NA.21",NA,NA,NA,NA,NA
+"NA.22",NA,NA,NA,NA,NA
+"NA.23",NA,NA,NA,NA,NA
+"NA.24",NA,NA,NA,NA,NA
+"NA.25",NA,NA,NA,NA,NA

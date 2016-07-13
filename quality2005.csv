@@ -1,13 +1,13 @@
 "","year","author","method","reportScore","methodsScore"
-"1",1992,"Decker MD","CCO",100,100
-"2",1992,"Fought RL","CCO",100,100
-"3",1992,"Ray WA","CCO",100,100
-"4",1995,"de Jong-van den Berg LTW","CCO",100,100
-"5",1995,"Middelbeek A","CCO",100,100
-"6",1995,"Stricker BH","CCO",100,100
-"7",1995,"Sturkenboom MCM","CCO",100,100
-"8",1995,"van den Berg PB","CCO",100,100
-"9",1995,"Wesseling H","CCO",100,100
+"1",1992,"Decker MD","SCC",100,100
+"2",1992,"Fought RL","SCC",100,100
+"3",1992,"Ray WA","SCC",100,100
+"4",1995,"de Jong-van den Berg LTW","SCC",100,100
+"5",1995,"Middelbeek A","SCC",100,100
+"6",1995,"Stricker BH","SCC",100,100
+"7",1995,"Sturkenboom MCM","SCC",100,100
+"8",1995,"van den Berg PB","SCC",100,100
+"9",1995,"Wesseling H","SCC",100,100
 "10",1995,"Colville A","SCCS",0,100
 "11",1995,"Farrington CP","SCCS",0,100
 "12",1995,"Flower A","SCCS",0,100
@@ -16,13 +16,13 @@
 "15",1995,"Nash J","SCCS",0,100
 "16",1995,"Pugh S","SCCS",0,100
 "17",1995,"Rush M","SCCS",0,100
-"18",1998,"Barbone F","CCO",0,100
-"19",1998,"Davey PG","CCO",100,100
-"20",1998,"MacDonald TM","CCO",100,100
-"21",1998,"McDevitt DG","CCO",100,100
-"22",1998,"McMahon AD","CCO",100,100
-"23",1998,"Morris AD","CCO",100,100
-"24",1998,"Reid IC","CCO",100,100
+"18",1998,"Barbone F","SCC",0,100
+"19",1998,"Davey PG","SCC",100,100
+"20",1998,"MacDonald TM","SCC",100,100
+"21",1998,"McDevitt DG","SCC",100,100
+"22",1998,"McMahon AD","SCC",100,100
+"23",1998,"Morris AD","SCC",100,100
+"24",1998,"Reid IC","SCC",100,100
 "25",2000,"Barreto ML","SCCS",100,100
 "26",2000,"Cunha S","SCCS",100,100
 "27",2000,"Dourado I","SCCS",100,100
@@ -30,17 +30,17 @@
 "29",2000,"Lucena R","SCCS",100,100
 "30",2000,"Melo A","SCCS",100,100
 "31",2000,"Teixeira MG","SCCS",100,100
-"32",2001,"Bourdés V","CCO",100,100
-"33",2001,"Bouwes-Bavinck JN","CCO",100,50
-"34",2001,"Confavreux C","CCO",100,100
-"35",2001,"Fagot JP","CCO",100,50
-"36",2001,"Mockenhaupt M","CCO",100,50
-"37",2001,"Naldi L","CCO",100,50
-"38",2001,"Roujeau JC","CCO",100,50
-"39",2001,"Saddier P","CCO",100,100
-"40",2001,"Suissa S","CCO",100,100
-"41",2001,"Viboud C","CCO",100,50
-"42",2001,"Vukusic S","CCO",100,100
+"32",2001,"BourdŽs V","SCC",100,100
+"33",2001,"Bouwes-Bavinck JN","SCC",100,50
+"34",2001,"Confavreux C","SCC",100,100
+"35",2001,"Fagot JP","SCC",100,50
+"36",2001,"Mockenhaupt M","SCC",100,50
+"37",2001,"Naldi L","SCC",100,50
+"38",2001,"Roujeau JC","SCC",100,50
+"39",2001,"Saddier P","SCC",100,100
+"40",2001,"Suissa S","SCC",100,100
+"41",2001,"Viboud C","SCC",100,50
+"42",2001,"Vukusic S","SCC",100,100
 "43",2001,"Andrews N","SCCS",0,100
 "44",2001,"Andrews N","SCCS",0,100
 "45",2001,"Black SB","SCCS",0,100
@@ -88,23 +88,23 @@
 "87",2001,"Ward JI","SCCS",0,100
 "88",2001,"Wharton M","SCCS",0,100
 "89",2001,"Zanardi LR","SCCS",0,100
-"90",2002,"Maxwell C","CCO",100,100
-"91",2002,"Neutel CI","CCO",100,100
-"92",2002,"Perry S","CCO",100,100
-"93",2003,"Hernan MA","CCO+CTC",100,100
-"94",2003,"Hernandez-Diaz S","CCO+CTC",100,100
-"95",2003,"Meyer K","CCO+CTC",100,100
-"96",2003,"Mitchell A","CCO+CTC",100,100
-"97",2003,"Werler MM","CCO+CTC",100,100
-"98",2003,"Beaugerie L","CCO",100,100
-"99",2003,"Choi BoYoul","CCO",100,100
-"100",2003,"Etienney I","CCO",100,100
-"101",2003,"Flahault A","CCO",100,100
-"102",2003,"Ki M","CCO",100,100
-"103",2003,"Oh JK","CCO",100,100
-"104",2003,"Park Taesung","CCO",100,100
-"105",2003,"Viboud C","CCO",100,100
-"106",2003,"Yi Sung Gon","CCO",100,100
+"90",2002,"Maxwell C","SCC",100,100
+"91",2002,"Neutel CI","SCC",100,100
+"92",2002,"Perry S","SCC",100,100
+"93",2003,"Hernan MA","SCC",100,100
+"94",2003,"Hernandez-Diaz S","SCC",100,100
+"95",2003,"Meyer K","SCC",100,100
+"96",2003,"Mitchell A","SCC",100,100
+"97",2003,"Werler MM","SCC",100,100
+"98",2003,"Beaugerie L","SCC",100,100
+"99",2003,"Choi BoYoul","SCC",100,100
+"100",2003,"Etienney I","SCC",100,100
+"101",2003,"Flahault A","SCC",100,100
+"102",2003,"Ki M","SCC",100,100
+"103",2003,"Oh JK","SCC",100,100
+"104",2003,"Park Taesung","SCC",100,100
+"105",2003,"Viboud C","SCC",100,100
+"106",2003,"Yi Sung Gon","SCC",100,100
 "107",2003,"Andrews N","SCCS",0,100
 "108",2003,"Farrington CP","SCCS",0,50
 "109",2003,"Farrington CP","SCCS",0,100
@@ -120,20 +120,20 @@
 "119",2003,"Taylor B","SCCS",0,100
 "120",2003,"Waight P","SCCS",0,100
 "121",2003,"West J","SCCS",0,100
-"122",2004,"Black SB","CCO",100,100
-"123",2004,"Chen Robert T","CCO",100,100
-"124",2004,"Davis RL","CCO",100,100
-"125",2004,"France EK","CCO",100,100
-"126",2004,"Glanz JM","CCO",100,100
-"127",2004,"Jackson LA","CCO",100,100
-"128",2004,"Ki M","CCO",100,100
-"129",2004,"Marcy SM","CCO",100,100
-"130",2004,"Mullooly JP","CCO",100,100
-"131",2004,"Park Taesung","CCO",100,100
-"132",2004,"Shinefield HR","CCO",100,100
-"133",2004,"Xu Stan","CCO",100,100
-"134",2004,"Yi Sung Gon","CCO",100,100
-"135",2004,"Zangwill KM","CCO",100,100
+"122",2004,"Black SB","SCC",100,100
+"123",2004,"Chen Robert T","SCC",100,100
+"124",2004,"Davis RL","SCC",100,100
+"125",2004,"France EK","SCC",100,100
+"126",2004,"Glanz JM","SCC",100,100
+"127",2004,"Jackson LA","SCC",100,100
+"128",2004,"Ki M","SCC",100,100
+"129",2004,"Marcy SM","SCC",100,100
+"130",2004,"Mullooly JP","SCC",100,100
+"131",2004,"Park Taesung","SCC",100,100
+"132",2004,"Shinefield HR","SCC",100,100
+"133",2004,"Xu Stan","SCC",100,100
+"134",2004,"Yi Sung Gon","SCC",100,100
+"135",2004,"Zangwill KM","SCC",100,100
 "136",2004,"Bopp M","SCCS",0,100
 "137",2004,"Chen Robert T","SCCS",0,100
 "138",2004,"Farrington CP","SCCS",0,100
@@ -148,26 +148,26 @@
 "147",2004,"Thomas SL","SCCS",0,100
 "148",2004,"Vallance P","SCCS",0,100
 "149",2004,"Zhou W","SCCS",0,100
-"150",2005,"Bagnardi V","CCO+CTC",0,100
-"151",2005,"Corrao G","CCO+CTC",100,100
-"152",2005,"Faini S","CCO+CTC",100,100
-"153",2005,"Leoni O","CCO+CTC",100,100
-"154",2005,"Suissa S","CCO+CTC",100,100
-"155",2005,"Zambon A","CCO+CTC",100,100
-"156",2005,"Aberra FN","CCO",0,100
-"157",2005,"Bilker WB","CCO",100,100
-"158",2005,"Bonneh DY","CCO",100,100
-"159",2005,"Brensinger CM","CCO",100,100
-"160",2005,"Cohen AD","CCO",100,100
-"161",2005,"Glasser DB","CCO",100,100
-"162",2005,"Halevy S","CCO",100,100
-"163",2005,"Lewis JD","CCO",100,100
-"164",2005,"Lichtenstein GR","CCO",100,100
-"165",2005,"Maclure M","CCO",100,100
-"166",2005,"Mittleman MA","CCO",100,100
-"167",2005,"Naggan L","CCO",100,100
-"168",2005,"Reuveni H","CCO",100,100
-"169",2005,"Vardy DA","CCO",100,100
+"150",2005,"Bagnardi V","SCC",0,100
+"151",2005,"Corrao G","SCC",100,100
+"152",2005,"Faini S","SCC",100,100
+"153",2005,"Leoni O","SCC",100,100
+"154",2005,"Suissa S","SCC",100,100
+"155",2005,"Zambon A","SCC",100,100
+"156",2005,"Aberra FN","SCC",0,100
+"157",2005,"Bilker WB","SCC",100,100
+"158",2005,"Bonneh DY","SCC",100,100
+"159",2005,"Brensinger CM","SCC",100,100
+"160",2005,"Cohen AD","SCC",100,100
+"161",2005,"Glasser DB","SCC",100,100
+"162",2005,"Halevy S","SCC",100,100
+"163",2005,"Lewis JD","SCC",100,100
+"164",2005,"Lichtenstein GR","SCC",100,100
+"165",2005,"Maclure M","SCC",100,100
+"166",2005,"Mittleman MA","SCC",100,100
+"167",2005,"Naggan L","SCC",100,100
+"168",2005,"Reuveni H","SCC",100,100
+"169",2005,"Vardy DA","SCC",100,100
 "170",2005,"Ali M","SCCS",50,100
 "171",2005,"Britton J","SCCS",0,100
 "172",2005,"Britton J","SCCS",0,100
@@ -209,3 +209,29 @@
 "208",2005,"West J","SCCS",0,0
 "209",2005,"West J","SCCS",0,50
 "210",2005,"Whitaker HJ","SCCS",0,0
+"NA",NA,NA,NA,NA,NA
+"NA.1",NA,NA,NA,NA,NA
+"NA.2",NA,NA,NA,NA,NA
+"NA.3",NA,NA,NA,NA,NA
+"NA.4",NA,NA,NA,NA,NA
+"NA.5",NA,NA,NA,NA,NA
+"NA.6",NA,NA,NA,NA,NA
+"NA.7",NA,NA,NA,NA,NA
+"NA.8",NA,NA,NA,NA,NA
+"NA.9",NA,NA,NA,NA,NA
+"NA.10",NA,NA,NA,NA,NA
+"NA.11",NA,NA,NA,NA,NA
+"NA.12",NA,NA,NA,NA,NA
+"NA.13",NA,NA,NA,NA,NA
+"NA.14",NA,NA,NA,NA,NA
+"NA.15",NA,NA,NA,NA,NA
+"NA.16",NA,NA,NA,NA,NA
+"NA.17",NA,NA,NA,NA,NA
+"NA.18",NA,NA,NA,NA,NA
+"NA.19",NA,NA,NA,NA,NA
+"NA.20",NA,NA,NA,NA,NA
+"NA.21",NA,NA,NA,NA,NA
+"NA.22",NA,NA,NA,NA,NA
+"NA.23",NA,NA,NA,NA,NA
+"NA.24",NA,NA,NA,NA,NA
+"NA.25",NA,NA,NA,NA,NA
