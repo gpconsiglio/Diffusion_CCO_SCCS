@@ -160,8 +160,6 @@ do_something_on_all_the_tables(quality_processed)
 
 
 
-
-
 ################################# ADDING REPORT/METHOD GRADES TO TABLE #############################################
 
 # attempt 1: doesn't work???
