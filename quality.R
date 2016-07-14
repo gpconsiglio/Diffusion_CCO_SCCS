@@ -81,46 +81,46 @@ edges$id <- 1:length(edges$a1)
 ################################### 2016-07-11 ADDING GIULIA'S QUALITY DATA ##########################################
 ################################################# NEW SCRIPT #########################################################
 
-# Read .csv table into R
+# Creating data frames of data up to a certain year, then storing these annual dfs into a list -----------------------
+
+# Import quality data from csv into R
 quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
 
 # extract pieces of quality2013 such that quality[y] is a slice of quality2013 up to year y
-# create a list called quality
+
+# make a list
 quality <- list();
 
-# make a loop; each time, make a data frame for years up to 2013-i
-# then store this to the 2013-i position in the quality df
+# create a loop where we make a data frame for years up to 2013-i
+# then store this to the 2013-i position in the prev defined list
 for (i in c(1:21)) {
   dfs <- quality2013[quality2013$year <= (2013-i), ]
   quality[[ (2013-i) ]] <- dfs
-  #quality <- lapply(quality, na.omit())  # doesn't work, but not really necessary
 }
 
 # add quality2013 to the list too
 quality[[2013]] <- quality2013
 
-# optional: check if we've done it right
-quality[2012]
+# OPTIONAL: check if we've done it right
+quality[2012]  # lots of NA values, but shouldn't affect us
 
-# Extract data frames from the loop, so that we can call it in the SQL command below:
+# TEMPORARY SOLUTION: JUST TAKE EVERYTHING OUT OF THE LIST LOL
 quality2012 <- quality[[2012]]
 
-# Now we'll start turning quality into node attribute tables
-# make a new list
-nodesY <- list()
+# Create a function for concatenating -----------------------------------------------------------------------
 
-nodes2012 <- quality[2012]
-for (i in c(2001:2002)) {
-  node_temp <- sqldf(sprintf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
+# the variable of the function is "df"
+# when we run this function, df will equal each slices (i.e. df for each year) we've made before
+# the actual SQL command follows very similar logic as previous concatenations
+
+concatenate <- function(df) {
+  sqldf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
     avg(reportScore) AS reportScore, avg(methodsScore) AS methodsScore
-    FROM quality%s
-    GROUP BY author"), i)
-  NodesY[[i]] <- node_temp
+    FROM df
+    GROUP BY author") 
 }
 
-
-
-
+nodes2012 <- concatenate( quality[2012] )
 
 
 
