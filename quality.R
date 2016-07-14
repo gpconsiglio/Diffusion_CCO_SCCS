@@ -96,11 +96,14 @@ for (i in c(1:21)) {
   #quality <- lapply(quality, na.omit())  # doesn't work, but not really necessary
 }
 
-# add quality2013 to the frame too
+# add quality2013 to the list too
 quality[[2013]] <- quality2013
 
 # optional: check if we've done it right
 quality[2012]
+
+# For sanity
+quality2012 <- quality[[2012]]
 
 # Now we'll start turning quality into node attribute tables
 # make a new list
@@ -109,8 +112,8 @@ nodesY <- list()
 for (i in c(1992:2013)) {
   node_temp <- sqldf(sprintf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
     avg(reportScore) AS reportScore, avg(methodsScore) AS methodsScore
-    FROM quality[i]
-    GROUP BY author"))
+    FROM quality%s
+    GROUP BY author"), i)
   NodesY[[i]] <- node_temp
 }
 
