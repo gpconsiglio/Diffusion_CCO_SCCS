@@ -82,22 +82,76 @@ edges$id <- 1:length(edges$a1)
 ################################################# NEW SCRIPT #########################################################
 
 # Read .csv table into R
-
 quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
 
-# Make new .csv tables - only needed once.
+##### extract pieces of quality2013 such that quality[y] is a slice of quality2013 up to year y
+quality <- list();
+
+for (i in c(1:21)) {
+  dfs <- quality2013[quality2013$year <= (2013-i), ]
+  quality[[i]] <- dfs
+  #quality <- lapply(quality, na.omit())  # doesn't work, but not really necessary
+}
+
+
+# concatenate
+node2013 <- sqldf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
+    avg(reportScore) AS reportScore, avg(methodsScore) AS methodsScore
+    FROM quality2013
+    GROUP BY author")
+
+# Remove the blank first row (just in case it messes thing up)
+# node2013 <- node2013[-1, ] # this messes up the row numbering for some reason
+
+# Adding the report/method grades -----------------------------------------------------
+
+# attempt 1: doesn't work???
+#if (node2013$reportScore >= 80) {
+#  node2013$reportGrade <- "a"
+#} else {
+#  node2013$reportGrade <- 'trial'
+#}
+
+# attempt2
+node2013$reportGrade <- ifelse(node2013$reportScore >= 80, 'a', NA)
+node2013$reportGrade <- ifelse( ((node2013$reportScore < 80) & (node2013$reportScore >=60)) , 'b', NA)
+
+################### Scraped code: creating tables by year using csv ################################################
+
+# prints new CSV table by year
+quality2013 <- read.csv("quality2013.csv", header=T, sep=",", row.names = F)
+
+# Make new .csv tables - only needed to run it once!
 for (i in c(1:21)) {
   temp <- quality2013[quality2013$year <= (2013-i), ]
   write.csv(temp, sprintf("quality%d.csv", (2013-i)))
 }
 
+# Read csv files back as dataframes:
+quality2012 = read.csv("quality2012.csv")
+quality2011 = read.csv("quality2011.csv")
+quality2010 = read.csv("quality2010.csv")
+quality2009 = read.csv("quality2009.csv")
+quality2008 = read.csv("quality2008.csv")
+quality2007 = read.csv("quality2007.csv")
+quality2006 = read.csv("quality2006.csv")
+quality2005 = read.csv("quality2005.csv")
+quality2004 = read.csv("quality2004.csv")
+quality2003 = read.csv("quality2003.csv")
+quality2002 = read.csv("quality2002.csv")
+quality2001 = read.csv("quality2001.csv")
+quality2000 = read.csv("quality2000.csv")
+quality1999 = read.csv("quality1999.csv")
+quality1998 = read.csv("quality1998.csv")
+quality1997 = read.csv("quality1997.csv")
+quality1996 = read.csv("quality1996.csv")
+quality1995 = read.csv("quality1995.csv")
+quality1994 = read.csv("quality1994.csv")
+quality1993 = read.csv("quality1993.csv")
+quality1992 = read.csv("quality1992.csv")
 
 
-################### Scraped code
-
-# prints new CSV table by year
-quality2013 <- read.csv("quality2013.csv", header=T, sep=",", row.names = F)
-
+# even more failed code -----------------------------------------------------------------------------------
 # loop and print new csv - didn't do what i wanted for some reason
 for (i in c(1:21)) {
   write.csv(quality2013[quality$year < (2013-i), ], sprintf("quality%d.csv", (2013-i)))
@@ -105,12 +159,12 @@ for (i in c(1:21)) {
 
 # made more reducionist
 for (i in c(1:21)) {
-  T <- quality2013[quality2013$year < (2013-i), ]
+  temp <- quality2013[quality2013$year < (2013-i), ]
   print(i)
   print(2013-i)
-  print(T)
+  print(temp)
   message("---------------------------------")
-  #write.csv(T, sprintf("quality%d.csv", (2013-i)))
+  #write.csv(temp, sprintf("quality%d.csv", (2013-i)))
 }
 
 # even further improved?
@@ -120,13 +174,6 @@ file_name<-sprintf('quality%d.csv', year);
 write.csv(tbl, file_name, row.names=F)
 df <- data.frame(read.csv(file_name))
 
-
-# extract pieces of quality2013 such that quality[y] is a slice of quality2013 up to year y
-quality <- list();
-for (i in c(1:21)) {
-  tbl <- data.frame(quality2013[quality2013$year < (2013-i), ])
-  quality[i] <- tbl
-}
 
 # in which i give up trying to write loops, even while trying to read .csv back as dataframes
 
