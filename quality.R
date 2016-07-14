@@ -84,88 +84,59 @@ edges$id <- 1:length(edges$a1)
 
 # Create a function for concatenating -----------------------------------------------------------------------
 
-# the variable of the function is "df"
-# when we run this function, df will equal each slices (i.e. df for each year) we've made before
-# the actual SQL command follows very similar logic as previous concatenations
-
-concatenate <- function(df) {
+clean_data <- function(df) {
+  
+  # the variable of the function is "df"
+  # when we run this function, df will equal each slices (i.e. df for each year) we've made before
+  # the actual SQL command follows very similar logic as previous concatenations
+  
   sqldf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
     avg(reportScore) AS reportScore, avg(methodsScore) AS methodsScore
     FROM df
     GROUP BY author") 
+  
+  
+  
+  # ____PLACEHOLDER FOR MORE DATA CLEANING TO COME ______
+  
 }
 
-nodes2012 <- concatenate( quality[2012] )
 
 
+# Let's run the function! ----------------------------------------------------
+# Make a list to store the output of the loops into
+node_list <- list()
 
-
-
-concatenate <- function(df) {
-  sqldf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
-        avg(reportScore) AS reportScore, avg(methodsScore) AS methodsScore
-        FROM df
-        GROUP BY author")
+# Make a vector of names we will assign to our data frames
+df_names <- c()
+for (i in c(1:22)) {
+  df_names[i] <- sprintf("nodes%d", 1991+i)
 }
 
 # load the dataset
-quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
+qualityraw2013 <- read.csv("quality2013.csv", header=T, sep=",")
 
-# make a list
-quality <- list();
-
-# create a loop where we make a data frame for years up to 2013-i
-# then store this to the 2013-i position in the prev. definied list
-for (i in c(1:21)) {
-  dfs <- quality2013[quality2013$year <= (2013-i), ]
-  quality[[ (2013-i) ]] <- concatenate(dfs)
-  print(quality[[(2013-i)]])
-  message("-------------")
+# Make a temp df of data up to a certain year, then clean this data using function
+for (i in c(1992:2013)) {
+  dfs <- qualityraw2013[qualityraw2013$year <= i, ]
+  dfs <- clean_data(dfs)
+  node_list[[i]] <- dfs # stores all dfs in a list
+  assign(df_names[i-1991], node_list[[i]]) # attaches a name to these dfs
 }
 
-# add quality2013 to the list too
-quality[[2013]] <- concatenate(quality2013)
 
-
-
-
-
-
-
-
-######################################## Option B: Cleaner version #######################################
-
-
-
-
-quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
-
-qualities <- list()
-for (i in c(1992:2012)) {
-  slices <- quality2013[quality2013$year < i, ]
-  qualities[[i]] <- sqldf(".... tmp ....")
-}
-
-do_something_on_all_the_tables(quality_processed)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
 
 
 
 ################################# ADDING REPORT/METHOD GRADES TO TABLE #############################################
+########### TRIAL WITH JUST 2013, CHANGE LATER FOR THE LOOP ######################
+
+sqldf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
+    avg(reportScore) AS reportScore, avg(methodsScore) AS methodsScore
+    FROM df
+    GROUP BY author")  
+
 
 # attempt 1: doesn't work???
 #if (node2013$reportScore >= 80) {
