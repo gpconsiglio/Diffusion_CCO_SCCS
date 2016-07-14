@@ -81,31 +81,6 @@ edges$id <- 1:length(edges$a1)
 ################################### 2016-07-11 ADDING GIULIA'S QUALITY DATA ##########################################
 ################################################# NEW SCRIPT #########################################################
 
-# Creating data frames of data up to a certain year, then storing these annual dfs into a list -----------------------
-
-# Import quality data from csv into R
-quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
-
-# extract pieces of quality2013 such that quality[y] is a slice of quality2013 up to year y
-
-# make a list
-quality <- list();
-
-# create a loop where we make a data frame for years up to 2013-i
-# then store this to the 2013-i position in the prev defined list
-for (i in c(1:21)) {
-  dfs <- quality2013[quality2013$year <= (2013-i), ]
-  quality[[ (2013-i) ]] <- dfs
-}
-
-# add quality2013 to the list too
-quality[[2013]] <- quality2013
-
-# OPTIONAL: check if we've done it right
-quality[2012]  # lots of NA values, but shouldn't affect us
-
-# TEMPORARY SOLUTION: JUST TAKE EVERYTHING OUT OF THE LIST LOL
-quality2012 <- quality[[2012]]
 
 # Create a function for concatenating -----------------------------------------------------------------------
 
@@ -121,6 +96,36 @@ concatenate <- function(df) {
 }
 
 nodes2012 <- concatenate( quality[2012] )
+
+
+
+
+
+concatenate <- function(df) {
+  sqldf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
+        avg(reportScore) AS reportScore, avg(methodsScore) AS methodsScore
+        FROM df
+        GROUP BY author")
+}
+
+# load the dataset
+quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
+
+# make a list
+quality <- list();
+
+# create a loop where we make a data frame for years up to 2013-i
+# then store this to the 2013-i position in the prev. definied list
+for (i in c(1:21)) {
+  dfs <- quality2013[quality2013$year <= (2013-i), ]
+  quality[[ (2013-i) ]] <- concatenate(dfs)
+  print(quality[[(2013-i)]])
+  message("-------------")
+}
+
+# add quality2013 to the list too
+quality[[2013]] <- concatenate(quality2013)
+
 
 
 
@@ -174,3 +179,85 @@ node2013$reportGrade <- ifelse(node2013$reportScore >= 80, 'a', NA)
 node2013$reportGrade <- ifelse( ((node2013$reportScore < 80) & (node2013$reportScore >=60)) , 'b', NA)
 
 # Check Git history for more scraped code
+
+
+
+############# OTHER OPTIONS/SCRAPPED CODE ###############################################
+
+
+# OPTION 0: POOR ------------------------------------------------------------------------
+
+# Import quality data from csv into R
+quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
+
+# extract pieces of quality2013 such that quality[y] is a slice of quality2013 up to year y
+
+# make a list
+quality <- list();
+
+# create a loop where we make a data frame for years up to 2013-i
+# then store this to the 2013-i position in the prev defined list
+for (i in c(1:21)) {
+  dfs <- quality2013[quality2013$year <= (2013-i), ]
+  quality[[ (2013-i) ]] <- dfs
+}
+
+# add quality2013 to the list too
+quality[[2013]] <- quality2013
+
+# OPTIONAL: check if we've done it right
+quality[2012]  # lots of NA values, but shouldn't affect us
+
+# TEMPORARY SOLUTION: JUST TAKE EVERYTHING OUT OF THE LIST LOL
+quality2012 <- quality[[2012]]
+quality2011 <- quality[[2011]]
+quality2010 <- quality[[2010]]
+
+# OPTION 1: make a slice, temporarily store the output, then run clean_data on it ----------------- 
+
+concatenate <- function(df) {
+  sqldf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
+        avg(reportScore) AS reportScore, avg(methodsScore) AS methodsScore
+        FROM df
+        GROUP BY author")
+}
+
+# load the dataset
+quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
+
+# make a list
+quality <- list();
+
+# create a loop where we make a data frame for years up to 2013-i
+# then store this to the 2013-i position in the prev. definied list
+for (i in c(1:21)) {
+  dfs <- quality2013[quality2013$year <= (2013-i), ]
+  quality[[ (2013-i) ]] <- concatenate(dfs)
+  print(quality[[(2013-i)]])
+  message("-------------")
+}
+
+# add quality2013 to the list too
+quality[[2013]] <- concatenate(quality2013)
+
+# OPTION 2: make a slice, clean the data, then loop this for all the slices ----------------------
+
+
+clean_data <- function(df) {
+  sqldf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
+    avg(reportScore) AS reportScore, avg(methodsScore) AS methodsScore
+    FROM df
+    GROUP BY author")
+}
+
+# load the dataset
+quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
+
+
+for (i in c(1:21)) {
+  dfs <- quality2013[quality2013$year <= (2013-i), ]
+  dfs <- concatenate(dfs)
+  print(dfs)
+  message("-------------")
+}
+
