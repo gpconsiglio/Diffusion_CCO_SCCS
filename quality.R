@@ -84,24 +84,35 @@ edges$id <- 1:length(edges$a1)
 # Read .csv table into R
 quality2013 <- read.csv("quality2013.csv", header=T, sep=",")
 
-##### extract pieces of quality2013 such that quality[y] is a slice of quality2013 up to year y
+# extract pieces of quality2013 such that quality[y] is a slice of quality2013 up to year y
+# create a list called quality
 quality <- list();
 
+# make a loop; each time, make a data frame for years up to 2013-i
+# then store this to the 2013-i position in the quality df
 for (i in c(1:21)) {
   dfs <- quality2013[quality2013$year <= (2013-i), ]
-  quality[[i]] <- dfs
+  quality[[ (2013-i) ]] <- dfs
   #quality <- lapply(quality, na.omit())  # doesn't work, but not really necessary
 }
 
+# add quality2013 to the frame too
+quality[[2013]] <- quality2013
 
-# concatenate
-node2013 <- sqldf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
+# optional: check if we've done it right
+quality[2012]
+
+# Now we'll start turning quality into node attribute tables
+# make a new list
+nodesY <- list()
+
+for (i in c(1992:2013)) {
+  node_temp <- sqldf(sprintf("SELECT author, GROUP_CONCAT(DISTINCT method) AS method,
     avg(reportScore) AS reportScore, avg(methodsScore) AS methodsScore
-    FROM quality2013
-    GROUP BY author")
-
-# Remove the blank first row (just in case it messes thing up)
-# node2013 <- node2013[-1, ] # this messes up the row numbering for some reason
+    FROM quality[i]
+    GROUP BY author"))
+  NodesY[[i]] <- node_temp
+}
 
 # Adding the report/method grades -----------------------------------------------------
 
